@@ -1,2 +1,4 @@
-# car-sales-prediction
-Repositorio para el desarrollo, entrenamiento y prueba de un modelo de predicción de ventas de vehículos. Contiene notebooks, scripts y documentación del proceso.
+# Car Sales Prediction
+
+Este repositorio contiene el trabajo colaborativo del equipo para el desarrollo de un modelo de Machine Learning.
+
