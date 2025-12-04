@@ -31,8 +31,13 @@ jobs:
       - name: Copy notebooks and markdowns to Jupyter Book
         run: |
           mkdir -p docs/book/notebooks
-          cp -r notebooks/*.ipynb docs/book/notebooks/ || true
-          cp -r *.md docs/book/ || true
+          mkdir -p docs/book/markdowns
+          
+          # Copiar notebooks desde todas las subcarpetas
+          find notebooks -name '*.ipynb' -exec cp {} docs/book/notebooks/ \;
+          
+          # Copiar markdowns solo si existen
+          find . -maxdepth 1 -name '*.md' -exec cp {} docs/book/markdowns/ \;
 
       - name: Build Jupyter Book
         run: |
@@ -45,4 +50,3 @@ jobs:
 
       - name: Deploy Jupyter Book to GitHub Pages
         uses: actions/deploy-pages@v4
-
