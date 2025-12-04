@@ -32,11 +32,11 @@ jobs:
         run: |
           mkdir -p docs/book/notebooks
           mkdir -p docs/book/markdowns
-          
-          # Copiar notebooks desde todas las subcarpetas
-          find notebooks -name '*.ipynb' -exec cp {} docs/book/notebooks/ \;
-          
-          # Copiar markdowns solo si existen
+
+          # Copiar notebooks desde subcarpetas (diego, hernando)
+          find ./notebooks -name '*.ipynb' -exec cp {} docs/book/notebooks/ \;
+
+          # Copiar markdowns que estén en la raíz del repo
           find . -maxdepth 1 -name '*.md' -exec cp {} docs/book/markdowns/ \;
 
       - name: Build Jupyter Book
