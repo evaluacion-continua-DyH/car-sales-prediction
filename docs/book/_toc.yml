@@ -1,0 +1,9 @@
+format: jb-book
+root: intro
+
+chapters:
+  - file: dataset
+  - file: pipeline
+  - file: results
+  - file: notebooks/preprocesamiento
+
