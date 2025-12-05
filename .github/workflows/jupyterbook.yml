@@ -1,0 +1,52 @@
+name: Build and Publish Jupyter Book
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-book:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Copy notebooks and markdowns to Jupyter Book
+        run: |
+          mkdir -p docs/book/notebooks
+          mkdir -p docs/book/markdowns
+
+          # Copiar notebooks desde subcarpetas (diego, hernando)
+          find ./notebooks -name '*.ipynb' -exec cp {} docs/book/notebooks/ \;
+
+          # Copiar markdowns que estén en la raíz del repo
+          find . -maxdepth 1 -name '*.md' -exec cp {} docs/book/markdowns/ \;
+
+      - name: Build Jupyter Book
+        run: |
+          jupyter-book build docs/book
+
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/book/_build/html
+
+      - name: Deploy Jupyter Book to GitHub Pages
+        uses: actions/deploy-pages@v4
